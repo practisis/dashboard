@@ -1,86 +1,9 @@
 <div class="page page-dashboard" data-ng-controller="DashboardCtrl">
 
 
-<div class="row">
-<div class="col-sm-6">
-	<span class="ui-select" style="margin: 0px 0px 2px 0%;">
-                <select>
-                    <option>Mustard</option>
-                    <option>Ketchup</option>
-                    <option>Barbecue</option>
-                </select>
-        </span>
-	
-			
-</div>
-	
-<div class='col-sm-6' style="padding-bottom: 8px;">
-       <div data-ng-controller="DatepickerDemoCtrl" style="max-width:200px;">
-                    <div class="input-group ui-datepicker">
-                        <input type="text" 
-                               class="form-control"
-                               datepicker-popup="{{format}}"
-                               ng-model="dt"
-                               is-open="opened"
-                               min="minDate"
-                               max="'2015-06-22'"
-                               datepicker-options="dateOptions" 
-                               date-disabled="disabled(date, mode)"
-                               ng-required="true" 
-                               close-text="Close">
-                        <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
-                    </div>
-                    <input type="hidden" value="{{dt | date:'shortDate'}}" />
-	</div>
-</div>
-</div>
+
     <!-- stats -->
-    <div class="row">
-	    <div class="col-lg-3 col-xsm-6">
-            <div class="panel mini-box">
-                <span class="box-icon bg-danger">
-                    <i class="fa fa-shopping-cart"></i>
-                </span>
-                <div class="box-info">
-                    <p class="size-h3">10,263</p>
-                    <p class="text-muted"><span data-i18n="Ventas $"></span></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-xsm-6">
-            <div class="panel mini-box">
-                <span class="box-icon bg-success">
-                    <i class="fa fa-credit-card"></i>
-                </span>
-                <div class="box-info">
-                    <p class="size-h3">5.25<span class="size-h4"></span></p>
-                    <p class="text-muted"><span data-i18n="Ticket Promedio $"></span></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-xsm-6">
-            <div class="panel mini-box">
-                <span class="box-icon bg-info">
-                    <i class="fa fa-users"></i>
-                </span>
-                <div class="box-info">
-                    <p class="size-h3">78</p>
-                    <p class="text-muted"><span data-i18n="Transacciones"></span></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-xsm-6">
-            <div class="panel mini-box">
-                <span class="box-icon bg-warning">
-                    <i class="fa fa-dollar"></i>
-                </span>
-                <div class="box-info">
-                    <p class="size-h3">1,550</p>
-                    <p class="text-muted"><span data-i18n="Utilidad $"></span></p>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- end stats -->
 
     <div class="row">
@@ -149,99 +72,6 @@
         </div>
     </div>
 
-    <div class="row">
-	  <div class="col-md-4">
-		    <div class="panel panel-default">
-                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> <span data-i18n="Contribución a Utilidad"></span></strong></div>
-                <div class="panel-body"  data-ng-controller="flotChartCtrl">
-		<table class="table">
-					<thead>
-						<tr>
-							<th>Categoría</th>
-							<th>% Contrib.</th>
-							<th>Utilidad US$</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>       
-							<td>Lacteos</td>
-							<td align="right">15%</td>
-							<td align="right">125.59</td>
-						</tr>
-						<tr>       
-							<td>Cárnicos</td>
-							<td align="right">12%</td>
-							<td align="right">120.21</td>
-						</tr>
-						<tr>       
-							<td>Galletas</td>
-							<td align="right">152</td>
-							<td align="right">302.24</td>
-						</tr>
-						<tr>       
-							<td>Gaseosas</td>
-							<td align="right">102</td>
-							<td align="right">215.25</td>
-						</tr>
-						<tr>       
-							<td>Munchies</td>
-							<td align="right">99</td>
-							<td align="right">199.36</td>
-						</tr>
-							</tbody>
-							</table>
-			</div>
-            </div>
-            
-        </div>
-        <div class="col-md-4">
-				
-                      <section class="panel panel-box info-box">
-                        <div class="panel-left panel-item bg-success">
-                            <i class="fa fa-rocket text-large stat-icon"></i>
-                        </div>
-                        <div class="panel-right panel-item bg-reverse">
-                            <p class="size-h2 no-margin">80<span class="size-h3">%</span></p>
-                            <p class="text-muted no-margin"><span data-i18n="Utilidad de Ventas"></span></p>
-                        </div>
-                    </section>
-					<section class="panel panel-box info-box">
-						<div class="panel-left panel-item bg-info">
-							<i class="fa fa-users text-large stat-icon">
-							</i>
-						</div>
-					<div class="panel-right panel-item bg-reverse">
-					<p class="size-h2 no-margin">1,320</p>
-					<p class="text-muted no-margin"><span data-i18n="Inventario Final US$"></span></p>
-					</div>
-				   </section>
-			</div>
-		<div class="col-md-4">
-				   <section class="panel panel-box info-box">
-						<div class="panel-left panel-item bg-warning">
-							<i class="fa fa-dollar text-large stat-icon">
-							</i>
-						</div>
-						<div class="panel-right panel-item bg-reverse">
-							<p class="size-h2 no-margin">93,760</p>
-							<p class="text-muted no-margin"><span data-i18n="Costo de Ventas US$"></span></p>
-						</div>
-				</section>
-				<section class="panel panel-box info-box">
-					<div class="panel-left panel-item bg-danger">
-						<i class="fa fa-shopping-cart text-large stat-icon"></i>
-					</div>
-					<div class="panel-right panel-item bg-reverse">
-						<p class="size-h2 no-margin">3,690</p>
-						<p class="text-muted no-margin"><span data-i18n="Compras del Período US$"></span></p>
-					</div>
-		</section>				
-        </div>
-      
-
-    </div>
-
-
   <div class="row">
 	
 	<div class="col-md-12">
@@ -262,7 +92,11 @@
                 <div class="panel-body" data-ng-controller="morrisChartCtrl">
                         <div id="chartdias"></div>
                 </div>
-            </section> 
+            </section>
+		<br/>
+		<br/>
+		<br/>
+		<div id="nadamas"></div>
 	</div>
   </div>
     
@@ -294,7 +128,7 @@ new Morris.Area({
   lineColors: ['#E94B3B'],
   resize: true
 });
-new Morris.Area({
+new Morris.Line({
   // ID of the element in which to draw the chart.
   element: 'charthoras',
   // Chart data records -- each entry in this array corresponds to a point on
@@ -334,9 +168,8 @@ new Morris.Area({
   // chart.
   labels: ['ventas', 'ventas-1'],
   parseTime: false,
-  lineColors: ['#3AE99B', '#E93A7D'],
-  resize: true,
-  behaveLikeLine: true
+  lineColors: ['#CE0909', '#082356'],
+  resize: true
 });
 new Morris.Line({
   // ID of the element in which to draw the chart.
@@ -344,13 +177,13 @@ new Morris.Line({
   // Chart data records -- each entry in this array corresponds to a point on
   // the chart.
   data: [
-    { x: 'Lunes', mes: 445.65,mesant: 332.12 },
-    { x: 'Martes', mes: 821.54,mesant: 921.15 },
-    { x: 'Miercoles', mes: 823.23,mesant: 1050.12 },
-    { x: 'Jueves', mes: 1202.34,mesant: 1623.12 },
-    { x: 'Viernes', mes: 945.23,mesant: 1100.12 },
-	{ x: 'Sabado', mes: 1823.22,mesant: 2325.21 },
-	{ x: 'Domingo', mes: 1612.12,mesant: 1912.23 }	
+    { x: 'Lun', mes: 445.65,mesant: 332.12 },
+    { x: 'Mar', mes: 821.54,mesant: 921.15 },
+    { x: 'Mie', mes: 823.23,mesant: 1050.12 },
+    { x: 'Jue', mes: 1202.34,mesant: 1623.12 },
+    { x: 'Vie', mes: 945.23,mesant: 1100.12 },
+	{ x: 'Sab', mes: 1823.22,mesant: 2325.21 },
+	{ x: 'Dom', mes: 1612.12,mesant: 1912.23 }	
 	  ],
   // The name of the data record attribute that contains x-values.
   xkey: 'x',
@@ -360,8 +193,51 @@ new Morris.Line({
   // chart.
   labels: ['ventas', 'ventas-1'],
   parseTime: false,
-  lineColors: ['#666AD8', '#D8D666'],
+  lineColors: ['#CE0909', '#082356'],
   resize: true
 });
+
+
+
+
 </script>
+
+       
+       <script>
+function cargate(){
+	
+	//primero carga el user y pass
+	var request = new XMLHttpRequest();
+request.open("GET", "clave.txt");
+request.onreadystatechange = function() {
+if (request.readyState == 4) {
+console.log("*" + request.responseText + "*");
+enviaweb();
+}
+}
+request.send(); 
+       }
+       
+function enviaweb(){
+	
+		var xmlhttp=false;
+/*@cc_on @*/
+/*@if (@_jscript_version >= 5)
+try { xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");} catch (e) {try {xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");} 
+
+catch (E) { xmlhttp = false;}}
+@end @*/
+//console.log(cadena);
+if (!xmlhttp && typeof XMLHttpRequest!='undefined') { try {xmlhttp = new XMLHttpRequest(); } catch (e) { xmlhttp=false;}}
+if (!xmlhttp && window.createRequest) {	try { xmlhttp = window.createRequest();} catch (e) { xmlhttp=false;}}
+xmlhttp.open("GET","https://www.practisis.net/mobileapi.php",true);
+xmlhttp.onreadystatechange=function() {
+if (xmlhttp.readyState==4){
+	if(xmlhttp.status==200){	
+console.log(xmlhttp.responseText);		
+}}} 
+xmlhttp.send(null);
+}
+       
+        </script>
   

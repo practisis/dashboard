@@ -1,5 +1,5 @@
-<!doctype html>
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,51 +7,291 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+        <script src="js/jquery.js"></script>
         <!-- needs images, font... therefore can not be part of ui.css -->
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.min.css">
-        <link rel="stylesheet" href="styles/estilotemp.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <!-- end needs images -->
-
-            <link rel="stylesheet" href="styles/main.css">
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+        
+<style>
+    
+ .pelota{   
+    display: block;
+float: left;
+margin: 0px 10px 10px 0px;
+width: 65px;
+height: 65px;
+border-radius: 50%;
+line-height: 65px;
+vertical-align: middle;
+text-align: center; 
+font-size: 35px;
+ }   
+    
+</style>
 
     </head>
-    <body data-ng-app="app" id="app" data-custom-background data-off-canvas-nav>
-        <!--[if lt IE 9]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+    <body>
+       
 
-        <div data-ng-controller="AppCtrl">
-            <div data-ng-hide="isSpecificPage()" data-ng-cloak>
-                <section data-ng-include=" 'views/header.html' " id="header" class="top-header" style="height:50px;"></section>
+       <div class="container" >
+<div class="row">
+                    <div class="col-md-12" style="text-align: center; background-color:black;color:#fff; font-size: 20px; padding-bottom: 10px; padding-top: 5px;">
+                        <h3>Practisis Dashboard</h3>
+                    </div>
+                    
+</div>
+<div class="row" style="padding-top: 10px;padding-bottom: 10px;">
+        
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div  class="panel-heading">
+                        <strong><span class="glyphicon glyphicon-th"></span> 
+                        DATOS FILTRO
+                    </div>
+                    <div class="panel-body">
+                        <label>Establecimiento</label>
+                <select class="form-control">
+                    <option>Mustard</option>
+                    <option>Ketchup</option>
+                    <option>Barbecue</option>
+                </select>
+                <br/>
+                <label>Fecha</label>
+                    <input type="date" class="form-control">
+                <br/>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-success"  onclick="cargate();">Filtrar</button>
+                </div>
+                </div>
+                </div>
+            </div>	
+                  
+</div>
 
 
+
+        
+<div class="row">
+	    <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-body" >
+                <span style="background-color: #e94b3b; color:#fff;" class="pelota">
+                    <i class="fa fa-shopping-cart"></i>
+                </span>
+                <div style="text-align:right;">
+                    <p class="h3"><small>Ventas:&nbsp;&nbsp;&nbsp;</small> 10,263 US$</p>
+                </div>
             </div>
-
-            <div class="view-container">
-                <section data-ng-view id="content" class="animate-fade-up" style="top:55px;"></section>
+                </div>
+        </div>
+            
+             <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-body" >
+                <span style="background-color: #23ae89; color:#fff;" class="pelota">
+                    <i class="fa fa-credit-card"></i>
+                </span>
+                <div style="text-align:right;">
+                    <p class="h3"><small>Ticket Promedio:&nbsp;&nbsp;&nbsp;</small> 5,35 US$</p>
+                </div>
             </div>
+                </div>
+        </div>
+             
+                  <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-body" >
+                <span style="background-color: #ffb61c; color:#fff;" class="pelota">
+                    <i class="fa fa-users"></i>
+                </span>
+                <div style="text-align:right;">
+                    <p class="h3"><small>Transacciones:&nbsp;&nbsp;&nbsp;</small> 78</p>
+                </div>
+            </div>
+                </div>
+        </div>
+   
+</div>    
+            
+        <div class="row">
+        <div class="col-md-12">
+            <section class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas del Mes</strong></div>
+                <div class="panel-body" data-ng-controller="morrisChartCtrl">
+                        <div id="chartventas"></div>
+                </div>
+            </section> 
+        </div>
+        </div>
+          <div class="row">
+	
+	<div class="col-md-12">
+		<section class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas por Horas Mes vs. Año Anterior</strong></div>
+                <div class="panel-body" data-ng-controller="morrisChartCtrl">
+                        <div id="charthoras"></div>
+                </div>
+            </section> 
+	</div>
+  </div>
+  
+    <div class="row">
+	
+	<div class="col-md-12">
+		<section class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas por día Mes vs. Año Anterior</strong></div>
+                <div class="panel-body" data-ng-controller="morrisChartCtrl">
+                        <div id="chartdias"></div>
+                </div>
+            </section>
+		<br/>
+		<br/>
+	</div>
+  </div>
+        
+            
+            
+            
+            
         </div>
 
 
-        <script src="scripts/vendor.js"></script>
+		
+                <script>
+                    
+            
+   
+new Morris.Area({
+  // ID of the element in which to draw the chart.
+  element: 'chartventas',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: [
+    { x: '01/04', ventas: 458.10 },
+    { x: '02/04', ventas: 380.25 },
+    { x: '03/04', ventas: 625.58 },
+    { x: '04/04', ventas: 1275.12 },
+    { x: '05/04', ventas: 1189.25 },
+	{ x: '06/04', ventas: 129.25 },
+	{ x: '07/04', ventas: 654.25 }
+  ],
+  // The name of the data record attribute that contains x-values.
+  xkey: 'x',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['ventas'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['ventas'],
+  parseTime: false,
+  lineColors: ['#E94B3B'],
+  resize: true
+});
 
-        <script src="scripts/ui.js"></script>
+new Morris.Line({
+  // ID of the element in which to draw the chart.
+  element: 'charthoras',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: [
+    { x: '00', mes: 0,mesant: 0 },
+    { x: '01', mes: 0,mesant: 0 },
+    { x: '02', mes: 0,mesant: 0 },
+    { x: '03', mes: 0,mesant: 0 },
+    { x: '04', mes: 0,mesant: 0 },
+	{ x: '05', mes: 0,mesant: 0 },
+	{ x: '06', mes: 0,mesant: 0 },	
+	{ x: '07', mes: 10.22,mesant: 0 },
+	{ x: '08', mes: 113.25,mesant: 154.55 },
+	{ x: '09', mes: 183.25,mesant: 160.45 },
+	{ x: '10', mes: 213.25,mesant: 110.54 },
+	{ x: '11', mes: 45.121,mesant: 124.11 },
+	{ x: '12', mes: 150.22,mesant: 180.11 },
+	{ x: '13', mes: 325.25,mesant: 425.21 },
+	{ x: '14', mes: 345.23,mesant: 321.23 },
+	{ x: '15', mes: 200.12,mesant: 243.11 },
+	{ x: '16', mes: 183.25,mesant: 143.11 },
+	{ x: '17', mes: 120.23,mesant: 85.12 },
+	{ x: '18', mes: 140.22,mesant: 136.11 },
+	{ x: '19', mes: 180.23,mesant: 234.22 },
+	{ x: '20', mes: 190.21,mesant: 189.11 },
+	{ x: '21', mes: 22.23,mesant: 89.11 },
+	{ x: '22', mes: 143.23,mesant: 15.54 },
+	{ x: '23', mes: 11.11,mesant: 0 },
+	
+  ],
+  // The name of the data record attribute that contains x-values.
+  xkey: 'x',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['mes','mesant'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['ventas', 'ventas-1'],
+  parseTime: false,
+  lineColors: ['#E94B3B', '#082356'],
+  resize: true
+});
+new Morris.Line({
+  // ID of the element in which to draw the chart.
+  element: 'chartdias',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: [
+    { x: 'Lun', mes: 445.65,mesant: 332.12 },
+    { x: 'Mar', mes: 821.54,mesant: 921.15 },
+    { x: 'Mie', mes: 823.23,mesant: 1050.12 },
+    { x: 'Jue', mes: 1202.34,mesant: 1623.12 },
+    { x: 'Vie', mes: 945.23,mesant: 1100.12 },
+	{ x: 'Sab', mes: 1823.22,mesant: 2325.21 },
+	{ x: 'Dom', mes: 1612.12,mesant: 1912.23 }	
+	  ],
+  // The name of the data record attribute that contains x-values.
+  xkey: 'x',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['mes','mesant'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['ventas', 'ventas-1'],
+  parseTime: false,
+  lineColors: ['#E94B3B', '#082356'],
+  resize: true
+});
+         
+         
+function inicia(quien){
+// envia nuevo
+var xmlhttp=false;
+if (!xmlhttp && typeof XMLHttpRequest!='undefined') { try {xmlhttp = new XMLHttpRequest(); } catch (e) { xmlhttp=false;}}
+if (!xmlhttp && window.createRequest) {	try { xmlhttp = window.createRequest();} catch (e) { xmlhttp=false;}}
+xmlhttp.open("GET","https://www.practisis.net/mobileapi.php?id="+quien,true);
+xmlhttp.onreadystatechange=function() {
+if (xmlhttp.readyState==4){
+	if(xmlhttp.status==200){	
+console.log(xmlhttp.responseText);		
+}}} 
+xmlhttp.send(null);
+    
+}
 
-        <script src="scripts/app.js"></script>
-		<script>
-			var dispositivo = navigator.userAgent.toLowerCase();
-			/*var esMovil=true;*/
-			var esMovil=false;
-			if( dispositivo.search(/iphone|ipod|ipad|android/) > -1 ){
-				esMovil=true;
-			}
-		</script>
-		<script type="text/javascript" src="scripts/funciones.js"></script>
-        
+function cargate(){
+	
+	//primero carga el user y pass
+	var request = new XMLHttpRequest();
+request.open("GET", "claves.txt");
+request.onreadystatechange = function() {
+if (request.readyState == 4) {
+inicia(request.responseText);
+}
+}
+request.send(); 
+       }
+           
+                
+                </script>
                 
     </body>
 </html>
