@@ -55,10 +55,8 @@ font-size: 35px;
                     </div>
                     <div class="panel-body">
                         <label>Establecimiento</label>
-                <select class="form-control">
-                    <option>Mustard</option>
-                    <option>Ketchup</option>
-                    <option>Barbecue</option>
+                <select class="form-control" id="formalocales">
+
                 </select>
                 <br/>
                 <label>Fecha</label>
@@ -236,10 +234,16 @@ document.getElementById("contenedordealertas").style.display='block';
 document.getElementById("contenedordedatos").style.display='none';
 document.getElementById("mensaje").innerHTML="Cargando...espere por favor.";
 
+//coge la opcion del local
+var sel = document.getElementById("formalocales");
+var localselecto= sel.options[sel.selectedIndex].text;
+
+console.log(localselecto);
+
 var xmlhttp=false;
 if (!xmlhttp && typeof XMLHttpRequest!='undefined') { try {xmlhttp = new XMLHttpRequest(); } catch (e) { xmlhttp=false;}}
 if (!xmlhttp && window.createRequest) {	try { xmlhttp = window.createRequest();} catch (e) { xmlhttp=false;}}
-xmlhttp.open("GET","https://www.practisis.net/mobileapi.php?id="+quien+"&date="+document.getElementById("lafecha").value,true);
+xmlhttp.open("GET","https://www.practisis.net/mobileapi.php?id="+quien+"&date="+document.getElementById("lafecha").value+"&local="+localselecto,true);
 xmlhttp.onreadystatechange=function() {
 if (xmlhttp.readyState==4){
 	if(xmlhttp.status==200){	
@@ -262,22 +266,25 @@ xmlhttp.send(null);
     
 }
 
+
 function cargate(){
+    
 	//limpio los canvas de elementos
         document.getElementById("chartdias").innerHTML="";
         document.getElementById("chartventas").innerHTML="";
         document.getElementById("charthoras").innerHTML="";
         
-	//primero carga el user y pass
-	var request = new XMLHttpRequest();
-request.open("GET", "claves.txt");
-request.onreadystatechange = function() {
-if (request.readyState == 4) {
-inicia(request.responseText);
+	//primero carga el user, pass y locales.
+	var elget=window.location.search.replace("?", "");
+	var parejas= elget.split("&");
+	var intermedio=parejas[0].split("=");
+	var usuario=intermedio[1];
+	var intermedio2=parejas[1].split("=");
+	var password=intermedio2[1];
+	console.log("user:"+usuario+" y pass:"+password);
+	//envia a servidor
+	inicia(usuario+"|"+password);
 }
-}
-request.send(); 
-       }
 
 function datosiniciales(){
     
@@ -287,7 +294,22 @@ function datosiniciales(){
     var day = dt.getDate();
     var year = dt.getFullYear();
     var lafecha= year + '-' + month + '-' + day;
-    document.getElementById("lafecha").value=lafecha; 
+    document.getElementById("lafecha").value=lafecha;
+    
+    //primero carga el user, pass y locales.
+	var elget=window.location.search.replace("?", "");
+	var parejas= elget.split("&");
+	var intermedio=parejas[2].split("=");
+	var locales=intermedio[1].split("@");
+	console.log("son locales:"+locales.length);
+	
+    // ingresa locales en select
+    for (i = 0; i < locales.length; i++) {
+	        var x = document.getElementById("formalocales");
+		var option = document.createElement("option");
+		option.text = locales[i];
+		x.add(option);
+    }    
 }      
                 
                 </script>
