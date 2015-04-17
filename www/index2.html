@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Web Application</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <script src="js/jquery.js"></script>
+        <!-- needs images, font... therefore can not be part of ui.css -->
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+        
+<style>
+    
+ .pelota{   
+    display: block;
+float: left;
+margin: 0px 10px 10px 0px;
+width: 65px;
+height: 65px;
+border-radius: 50%;
+line-height: 65px;
+vertical-align: middle;
+text-align: center; 
+font-size: 35px;
+ }   
+    
+</style>
+
+    </head>
+    <body onload="datosiniciales();">
+       
+
+       <div class="container" >
+<div class="row">
+                    <div class="col-md-12" style="text-align: center; background-color:black;color:#fff; font-size: 20px; padding-bottom: 10px; padding-top: 5px;">
+                        <h3>Practisis Dashboard</h3>
+                    </div>
+                    
+</div>
+<div class="row" style="padding-top: 10px;padding-bottom: 10px;">
+        
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div  class="panel-heading">
+                        <strong><span class="glyphicon glyphicon-th"></span> 
+                        DATOS FILTRO
+                    </div>
+                    <div class="panel-body">
+                        <label>Establecimiento</label>
+                <select class="form-control">
+                    <option>Mustard</option>
+                    <option>Ketchup</option>
+                    <option>Barbecue</option>
+                </select>
+                <br/>
+                <label>Fecha</label>
+                    <input type="date" id="lafecha" class="form-control">
+                <br/>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-success"  onclick="cargate();">Filtrar</button>
+                </div>
+                </div>
+                </div>
+            </div>	
+                  
+</div>
+
+
+
+ <div id="contenedordedatos" style="display:none;">       
+<div class="row">
+	    <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-body" >
+                <span style="background-color: #e94b3b; color:#fff;" class="pelota">
+                    <i class="fa fa-shopping-cart"></i>
+                </span>
+                <div style="text-align:right;">
+                    <p class="h4"><small>Ventas Mes US$:&nbsp;&nbsp;&nbsp;</small> <span id="campoventas">10,263</span></p>
+                </div>
+            </div>
+                </div>
+        </div>
+            
+             <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-body" >
+                <span style="background-color: #23ae89; color:#fff;" class="pelota">
+                    <i class="fa fa-credit-card"></i>
+                </span>
+                <div style="text-align:right;">
+                    <p class="h4"><small>Ticket Promedio US$:&nbsp;&nbsp;&nbsp;</small> <span id="campoticket"> 5,35</p>
+                </div>
+            </div>
+                </div>
+        </div>
+             
+                  <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-body" >
+                <span style="background-color: #ffb61c; color:#fff;" class="pelota">
+                    <i class="fa fa-users"></i>
+                </span>
+                <div style="text-align:right;">
+                    <p class="h4"><small>Transacciones Mes:&nbsp;&nbsp;&nbsp;</small> <span id="campotransacciones">78</span></p>
+                </div>
+            </div>
+                </div>
+        </div>
+   
+</div>    
+            
+        <div class="row">
+        <div class="col-md-12">
+            <section class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas del Mes</strong></div>
+                <div class="panel-body" data-ng-controller="morrisChartCtrl">
+                        <div id="chartventas"></div>
+                </div>
+            </section> 
+        </div>
+        </div>
+          <div class="row">
+	
+	<div class="col-md-12">
+		<section class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas por Horas Mes vs. Año Anterior</strong></div>
+                <div class="panel-body" data-ng-controller="morrisChartCtrl">
+                        <div id="charthoras"></div>
+                </div>
+            </section> 
+	</div>
+  </div>
+  
+    <div class="row">
+	
+	<div class="col-md-12">
+		<section class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas por día Mes vs. Año Anterior</strong></div>
+                <div class="panel-body" data-ng-controller="morrisChartCtrl">
+                        <div id="chartdias"></div>
+                </div>
+            </section>
+		<br/>
+		<br/>
+	</div>
+  </div>
+    </div>
+ 
+ <div id="contenedordealertas" style="display:block;">
+      <div class="row">
+	<div class="col-md-12" id="mensaje" style="text-align: center;">
+            Seleciona tus criterios y aplasta "Filtrar"
+        </div>
+      </div>
+ </div>
+        
+            
+            
+            
+            
+        </div>
+
+
+		
+                <script>
+                    
+//var datosgraf1=JSON.parse("");
+         
+function metegraficos(datos1, datos3, datos2){
+new Morris.Line({
+  // ID of the element in which to draw the chart.
+  element: 'chartventas',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: datos1,
+  // The name of the data record attribute that contains x-values.
+  xkey: 'x',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['ventas', 'ventas1'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['ventas','ventas-1'],
+  parseTime: false,
+  lineColors: ['#E94B3B','#082356'],
+  resize: true
+});
+
+new Morris.Line({
+  // ID of the element in which to draw the chart.
+  element: 'charthoras',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: datos2,
+  // The name of the data record attribute that contains x-values.
+  xkey: 'x',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['mes','mesant'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['ventas', 'ventas-1'],
+  parseTime: false,
+  lineColors: ['#E94B3B', '#082356'],
+  resize: true
+});
+new Morris.Line({
+  // ID of the element in which to draw the chart.
+  element: 'chartdias',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: datos3,
+  // The name of the data record attribute that contains x-values.
+  xkey: 'x',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['mes','mesant'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['ventas', 'ventas-1'],
+  parseTime: false,
+  lineColors: ['#E94B3B', '#082356'],
+  resize: true
+});
+}        
+         
+function inicia(quien){
+// envia nuevo
+document.getElementById("contenedordealertas").style.display='block';
+document.getElementById("contenedordedatos").style.display='none';
+document.getElementById("mensaje").innerHTML="Cargando...espere por favor.";
+
+var xmlhttp=false;
+if (!xmlhttp && typeof XMLHttpRequest!='undefined') { try {xmlhttp = new XMLHttpRequest(); } catch (e) { xmlhttp=false;}}
+if (!xmlhttp && window.createRequest) {	try { xmlhttp = window.createRequest();} catch (e) { xmlhttp=false;}}
+xmlhttp.open("GET","https://www.practisis.net/mobileapi.php?id="+quien+"&date="+document.getElementById("lafecha").value,true);
+xmlhttp.onreadystatechange=function() {
+if (xmlhttp.readyState==4){
+	if(xmlhttp.status==200){	
+//recibe datos para graficos
+var respuesta=xmlhttp.responseText;
+var datos= respuesta.split("$");
+var primerosdatos=datos[0].split("|");
+document.getElementById("campoventas").innerHTML=primerosdatos[0];
+document.getElementById("campoticket").innerHTML=primerosdatos[2];
+document.getElementById("campotransacciones").innerHTML=primerosdatos[1];
+document.getElementById("contenedordealertas").style.display='none';
+document.getElementById("contenedordedatos").style.display='block';
+var jsonaobjt=JSON.parse(datos[1]);
+var jsonaobjt3=JSON.parse(datos[2]);
+var jsonaobjt2=JSON.parse(datos[3]);
+metegraficos(jsonaobjt, jsonaobjt3,jsonaobjt2);
+
+}}} 
+xmlhttp.send(null);
+    
+}
+
+function cargate(){
+	//limpio los canvas de elementos
+        document.getElementById("chartdias").innerHTML="";
+        document.getElementById("chartventas").innerHTML="";
+        document.getElementById("charthoras").innerHTML="";
+        
+	//primero carga el user y pass
+	var request = new XMLHttpRequest();
+request.open("GET", "claves.txt");
+request.onreadystatechange = function() {
+if (request.readyState == 4) {
+inicia(request.responseText);
+}
+}
+request.send(); 
+       }
+
+function datosiniciales(){
+    
+    var dt = new Date();
+    // Display the month, day, and year. getMonth() returns a 0-based number.
+    var month = dt.getMonth()+1;
+    var day = dt.getDate();
+    var year = dt.getFullYear();
+    var lafecha= year + '-' + month + '-' + day;
+    document.getElementById("lafecha").value=lafecha; 
+}      
+                
+                </script>
+                
+    </body>
+</html>
