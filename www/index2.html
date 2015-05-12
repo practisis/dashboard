@@ -4,21 +4,22 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Web Application</title>
+		<script language="javascript" type="text/javascript" src="js/jquery.js"></script>
+		<script language="javascript" type="text/javascript" src="js/jquery-ui.min.js"></script>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <script src="js/jquery.js"></script>
+        <!-- <script src="js/jquery.js"></script>--->
         <!-- needs images, font... therefore can not be part of ui.css -->
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/bootstrap.css">
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+		<link rel="stylesheet" href="css/main_formated.css">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-        
 <style>
-    
  .pelota{   
     display: block;
 float: left;
@@ -31,22 +32,16 @@ vertical-align: middle;
 text-align: center; 
 font-size: 35px;
  }   
-    
 </style>
-
-    </head>
-    <body onload="datosiniciales();">
-       
-
-       <div class="container" >
+</head>
+<body onload="datosiniciales();">
+<div class="container" >
 <div class="row">
-                    <div class="col-md-12" style="text-align: center; background-color:black;color:#fff; font-size: 20px; padding-bottom: 10px; padding-top: 5px;">
-                        <h3>Practisis Dashboard</h3>
-                    </div>
-                    
+    <div class="col-md-12" style="text-align: center; background-color:black;color:#fff; font-size: 20px; padding-bottom: 10px; padding-top: 5px;">
+    <h3>Practisis Abaco</h3>
+    </div>               
 </div>
 <div class="row" style="padding-top: 10px;padding-bottom: 10px;">
-        
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div  class="panel-heading">
@@ -60,10 +55,10 @@ font-size: 35px;
                 </select>
                 <br/>
                 <label>Fecha</label>
-                    <input type="date" id="lafecha" class="form-control">
+                    <input id="lafecha" class="form-control" readonly />
                 <br/>
                 <div style="text-align: right;">
-                    <button type="button" class="btn btn-success"  onclick="cargate();">Filtrar</button>
+                    <button type="button" class="btn btn-success" id='bntfiltrar' onclick="cargate();">Filtrar</button>
                 </div>
                 </div>
                 </div>
@@ -119,15 +114,14 @@ font-size: 35px;
         <div class="row">
         <div class="col-md-12">
             <section class="panel panel-default">
-                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas del Mes</strong></div>
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas del Mes vs. Presupuesto</strong></div>
                 <div class="panel-body" data-ng-controller="morrisChartCtrl">
                         <div id="chartventas"></div>
                 </div>
             </section> 
         </div>
         </div>
-          <div class="row">
-	
+    <!---<div class="row">
 	<div class="col-md-12">
 		<section class="panel panel-default">
                 <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas por Horas Mes vs. Año Anterior</strong></div>
@@ -136,13 +130,13 @@ font-size: 35px;
                 </div>
             </section> 
 	</div>
-  </div>
+  </div>--->
   
     <div class="row">
 	
 	<div class="col-md-12">
 		<section class="panel panel-default">
-                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas por día Mes vs. Año Anterior</strong></div>
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Ventas por día Mes vs. Presupuesto</strong></div>
                 <div class="panel-body" data-ng-controller="morrisChartCtrl">
                         <div id="chartdias"></div>
                 </div>
@@ -156,7 +150,7 @@ font-size: 35px;
  <div id="contenedordealertas" style="display:block;">
       <div class="row">
 	<div class="col-md-12" id="mensaje" style="text-align: center;">
-            Seleciona tus criterios y aplasta "Filtrar"
+            Seleciona tus criterios y presiona "Filtrar"
         </div>
       </div>
  </div>
@@ -169,10 +163,17 @@ font-size: 35px;
 
 
 		
-                <script>
-                    
+<script>                    
 //var datosgraf1=JSON.parse("");
-         
+$(window).ready(function(){
+	$('#lafecha').datepicker({
+		showAnim: 'slideDown',
+		showOtherMonths: true,
+		dateFormat: 'yy-mm-dd',
+		dayNamesMin: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+		});
+});
+ 
 function metegraficos(datos1, datos3, datos2){
 new Morris.Line({
   // ID of the element in which to draw the chart.
@@ -183,16 +184,16 @@ new Morris.Line({
   // The name of the data record attribute that contains x-values.
   xkey: 'x',
   // A list of names of data record attributes that contain y-values.
-  ykeys: ['ventas', 'ventas1'],
+  ykeys: ['ventas', 'presupuestos'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: ['ventas','ventas-1'],
+  labels: ['Ventas','Presupuesto'],
   parseTime: false,
   lineColors: ['#E94B3B','#082356'],
   resize: true
 });
 
-new Morris.Line({
+/*new Morris.Line({
   // ID of the element in which to draw the chart.
   element: 'charthoras',
   // Chart data records -- each entry in this array corresponds to a point on
@@ -208,7 +209,7 @@ new Morris.Line({
   parseTime: false,
   lineColors: ['#E94B3B', '#082356'],
   resize: true
-});
+});*/
 new Morris.Line({
   // ID of the element in which to draw the chart.
   element: 'chartdias',
@@ -221,18 +222,24 @@ new Morris.Line({
   ykeys: ['mes','mesant'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: ['ventas', 'ventas-1'],
+  labels: ['Ventas', 'Presupuesto'],
   parseTime: false,
   lineColors: ['#E94B3B', '#082356'],
   resize: true
 });
+
+/*finaliza la espera*/
+document.getElementById("bntfiltrar").innerHTML="Filtrar";
+document.getElementById("bntfiltrar").className="btn btn-success";
 }        
          
 function inicia(quien){
 // envia nuevo
 document.getElementById("contenedordealertas").style.display='block';
 document.getElementById("contenedordedatos").style.display='none';
-document.getElementById("mensaje").innerHTML="Cargando...espere por favor.";
+document.getElementById("mensaje").innerHTML="Cargando...espere por favor.<br><img src='images/loader.gif' width='30px'/>";
+document.getElementById("bntfiltrar").innerHTML="<img src='images/loader.gif' width='20px'/>";
+document.getElementById("bntfiltrar").className="btn btn-default";
 
 //coge la opcion del local
 var sel = document.getElementById("formalocales");
@@ -272,9 +279,9 @@ function cargate(){
 	//limpio los canvas de elementos
         document.getElementById("chartdias").innerHTML="";
         document.getElementById("chartventas").innerHTML="";
-        document.getElementById("charthoras").innerHTML="";
+        //document.getElementById("charthoras").innerHTML="";
         
-	//primero carga el user, pass y locales.
+	//primero carga el user, pass y locales.--->
 	var elget=window.location.search.replace("?", "");
 	var parejas= elget.split("&");
 	var intermedio=parejas[0].split("=");
