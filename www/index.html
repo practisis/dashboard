@@ -48,6 +48,23 @@
 </div>
 </div>
 <script>
+
+$(window).ready(function(){
+		//localStorage.clear();
+		var username = localStorage.getItem('username');
+		var password = localStorage.getItem('password');
+		var empresa = localStorage.getItem('empresa');
+		
+		//alert(username);
+		if(username === null){
+			//window.location.href='index.html';
+		}else{
+			window.location.href="index2.html?id="+username+"&pass="+password+"&emp="+empresa;
+		}
+});		
+
+
+
 function valida(){
 document.getElementById('btnvalida').innerHTML="<img src='images/loader.gif' width='20px'/>";
 var quien=document.getElementById("user").value;
@@ -55,14 +72,16 @@ var pass=document.getElementById("pass").value;
 var xmlhttp=false;
 if (!xmlhttp && typeof XMLHttpRequest!='undefined') { try {xmlhttp = new XMLHttpRequest(); } catch (e) { xmlhttp=false;}}
 if (!xmlhttp && window.createRequest) {	try { xmlhttp = window.createRequest();} catch (e) { xmlhttp=false;}}
-xmlhttp.open("GET","https://www.practisis.net/mobileapilogin.php?id="+quien+"&pass="+pass,true);
+xmlhttp.open("GET","https://www.practisis.net/loginAbaco.php?id="+quien+"&pass="+pass,true);
 xmlhttp.onreadystatechange=function() {
 if (xmlhttp.readyState==4){
 	if(xmlhttp.status==200){
-            var respuesta=xmlhttp.responseText.split("|");
-            console.log(respuesta);
-            if (respuesta[0].trim()=='ok'){
-                location.href="index2.html?id="+quien+"&pass="+pass+"&locales="+respuesta[1];
+            var respuesta=xmlhttp.responseText;
+            console.log($.trim(respuesta));
+            if (respuesta.trim()!='error2'){
+                location.href="index2.html?id="+quien+"&pass="+pass+"&emp="+$.trim(respuesta);
+				//document.getElementById("mensaje").innerHTML="Credenciales si autorizadas."+respuesta;
+				
             }else{
                 document.getElementById("mensaje").innerHTML="Credenciales no autorizadas.";
                 document.getElementById("user").value="";
