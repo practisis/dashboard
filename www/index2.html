@@ -83,7 +83,7 @@
 							<div class="panel-body" id='consulta'>
 								<label>Establecimiento</label>
 								<select class="form-control" id="formalocales">
-								<option value='0'>Seleccione...</option>
+								<option value='0'>Todos los Locales...</option>
 								</select>
 								<br/>
 								<label>Fecha</label>
@@ -401,9 +401,9 @@
 				function inicia(){
 				var local= $('#formalocales').val();
 				//alert(local);
-					if(local == 0){
-						$('#formalocales').effect('shake');
-					}else{
+					//if(local == 0){
+					//	$('#formalocales').effect('shake');
+					//}else{
 
 						document.getElementById("contenedordealertas").style.display='block';
 						document.getElementById("contenedordedatos").style.display='none';
@@ -447,7 +447,7 @@
 
 						}}} 
 						xmlhttp.send(null);
-					}
+					//}
 				}
 
 			cargate();
