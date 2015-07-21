@@ -83,7 +83,7 @@
 							<div class="panel-body" id='consulta'>
 								<label>Establecimiento</label>
 								<select class="form-control" id="formalocales">
-								<option value='0'>Todos los Locales...</option>
+								<option value='0'>Todos...</option>
 								</select>
 								<br/>
 								<label>Fecha</label>
@@ -102,7 +102,7 @@
 
 				 <div id="contenedordedatos" style="display:none;">       
 					<div class="row">
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<div class="panel panel-default">
 									<div class="panel-body" >
 										<table width='100%'>
@@ -138,7 +138,7 @@
 								</div>
 							</div>
 								
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<div class="panel panel-default">
 									<div class="panel-body" >
 										<table width='100%'>
@@ -174,7 +174,7 @@
 								</div>
 							</div>
 								 
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<div class="panel panel-default">
 									<div class="panel-body" >
 										<table width='100%'>
@@ -209,13 +209,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<div class="panel panel-default">
 									<div class="panel-body" >
 										<table width='100%'>
 											<tr>
 												<td class='conpelota'>
-													<span style="background-color: #e94b3b; color:#fff;" class="pelota">
+													<span style="background-color: #23AE89; color:#fff;" class="pelota">
 														<i class="fa fa-money"></i>
 													</span>
 												</td>
@@ -235,6 +235,62 @@
 															</td>
 															<td align='center' style='font-weight:bolder;'>
 																<span id="proyeccionDia" style='font-size:12px;'>10,263</span>%
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-lg-4">
+								<div class="panel panel-default">
+									<div class="panel-body" >
+										<table width='100%'>
+											<tr>
+												<td class='conpelota'>
+													<span style="background-color: #FFB61C; color:#fff;" class="pelota">
+														<i class="fa fa-dollar"></i>
+													</span>
+												</td>
+												<td>
+													<table width='100%'>
+														<tr>
+															<td align='left' style='color:#777;font-size:13px;width:300px;'>
+																<small>Costo Total</small>
+															</td>
+															<td align='center' style='font-weight:bolder;'>
+																<span id="utilidadAcumulada" style='font-size:12px;'>10,263</span>$
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-lg-4">
+								<div class="panel panel-default">
+									<div class="panel-body" >
+										<table width='100%'>
+											<tr>
+												<td class='conpelota'>
+													<span style="background-color: #2EC1CC; color:#fff;" class="pelota">
+														<i class="fa fa-users"></i>
+													</span>
+												</td>
+												<td>
+													<table width='100%'>
+														<tr>
+															<td align='left' style='color:#777;font-size:13px;width:300px;'>
+																<small>Porcentaje de Costos</small>
+															</td>
+															<td align='center' style='font-weight:bolder;'>
+																<span id="costosTotales" style='font-size:12px;'>10,263</span>%
 															</td>
 														</tr>
 													</table>
@@ -402,7 +458,7 @@
 				var local= $('#formalocales').val();
 				//alert(local);
 					//if(local == 0){
-					//	$('#formalocales').effect('shake');
+						//$('#formalocales').effect('shake');
 					//}else{
 
 						document.getElementById("contenedordealertas").style.display='block';
@@ -435,6 +491,8 @@
 						document.getElementById("campotransaccionesDia").innerHTML=primerosdatos[5];
 						document.getElementById("proyeccionAcumulada").innerHTML=primerosdatos[6];
 						document.getElementById("proyeccionDia").innerHTML=primerosdatos[7];
+						document.getElementById("utilidadAcumulada").innerHTML=primerosdatos[8];
+						document.getElementById("costosTotales").innerHTML=primerosdatos[9];
 
 						document.getElementById("campoventasDia").innerHTML=primerosdatos[3];
 						document.getElementById("campoticketHoy").innerHTML=primerosdatos[4];
